@@ -10,6 +10,8 @@
 
 ![界面截图](https://cdn.jsdelivr.net/gh/isnotry/AnkiMaker@main/docs/screenshot.png)
 
+**[在线使用](https://kingsir.work/AnkiMaker/)** · 无需安装、不用注册，打开就能生成卡组
+
 ---
 
 ## 它是什么
@@ -36,9 +38,17 @@
 
 ## 快速开始
 
-### 本地使用
+### 在线使用
 
-项目是纯静态站，但 `vendor/sql-wasm.wasm` 需要 HTTP 环境（`file://` 下会被浏览器拦），所以起个本地服务：
+点击 **[在线使用](https://kingsir.work/AnkiMaker/)** 即可打开，无需安装、不用注册、不联网也能用（文本已内置在页面里）。
+
+页面上四步：**① 选书与卡型 → ② 预览 → ③ 生成 `.apkg` 并下载 → ④ 导入 Anki**。
+
+下载的 `.apkg` 用 Anki 的「文件 → 导入」载入。生成结果里会写明生成时间与原文来源，便于溯源。
+
+### 本地运行
+
+想改数据或生成核心时才需要。项目是纯静态站，但 `vendor/sql-wasm.wasm` 需要 HTTP 环境（`file://` 下会被浏览器拦），所以起个本地服务：
 
 ```bash
 # 1. 安装依赖（sql.js / jszip / esbuild）
@@ -47,16 +57,13 @@ npm install
 # 2. 改过数据或生成核心后，重跑打包
 npm run build:site
 
-# 3. 起本地服务
+# 3. 同步到 Pages 发布目录（docs/），并提交推送
+bash tools/sync-site.sh
+
+# 4. 起本地服务
 cd site && python3 -m http.server 8000
 # 然后打开 http://localhost:8000
 ```
-
-然后在页面上：**① 选书与卡型 → ② 预览 → ③ 生成 `.apkg` 并下载 → ④ 导入 Anki**。
-
-### 浏览器端用法
-
-下载的 `.apkg` 用 Anki 的「文件 → 导入」载入。生成结果里会写明生成时间与原文来源，便于溯源。
 
 ## 数据模型与卡型
 
@@ -265,6 +272,7 @@ npm run verify:fojing     # 心经 9 + 金刚经 204 = 213
 在 Chrome / Edge / Safari 桌面版实测可用（站点开发环境为 Anki 26.9.3）。
 
 - 需要 WebAssembly（`sql.js`）与 ES2018+ 语法
+- **线上版（[kingsir.work/AnkiMaker](https://kingsir.work/AnkiMaker/)）无需任何本地环境**；只有自己改代码时才需要起本地服务
 - 需要 HTTP 环境，**直接双击 `site/index.html` 不行**（`sql-wasm.wasm` 在 `file://` 下会被拦），必须起本地服务
 - 移动端浏览器可用但界面未针对小屏优化，建议桌面访问
 
