@@ -19,19 +19,19 @@ DST="$ROOT/docs"
 [ -f "$SRC/index.html" ] || { echo "site/index.html 不存在，站点不完整" >&2; exit 1; }
 
 # ---- 1. 记录同步前的状态 ----
-BEFORE="$(cat "$DST"/index.html "$DST"/app.js "$DST"/styles.css "$DST"/data.js 2>/dev/null | shasum | cut -d' ' -f1 || true)"
+BEFORE="$(shasum "$DST"/index.html "$DST"/app.js "$DST"/styles.css "$DST"/data.js "$DST"/og-image.png 2>/dev/null | shasum | cut -d' ' -f1 || true)"
 
 # ---- 2. 同步（先清再拷，避免删掉的文件残留）----
 mkdir -p "$DST"
-# 站点产物：index.html / app.js / styles.css / data.js / vendor/
+# 站点产物：index.html / app.js / styles.css / data.js / og-image.png / vendor/
 # 注意 docs/screenshot.png 是 README 配图，**不在同步范围内**
-for f in index.html app.js styles.css data.js; do
+for f in index.html app.js styles.css data.js og-image.png; do
   cp "$SRC/$f" "$DST/$f"
 done
 rm -rf "$DST/vendor"
 cp -R "$SRC/vendor" "$DST/vendor"
 
-AFTER="$(cat "$DST"/index.html "$DST"/app.js "$DST"/styles.css "$DST"/data.js 2>/dev/null | shasum | cut -d' ' -f1)"
+AFTER="$(shasum "$DST"/index.html "$DST"/app.js "$DST"/styles.css "$DST"/data.js "$DST"/og-image.png 2>/dev/null | shasum | cut -d' ' -f1)"
 
 if [ "$BEFORE" = "$AFTER" ]; then
   echo "✓ docs/ 与 site/ 已一致，无需同步"
