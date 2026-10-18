@@ -1,0 +1,86 @@
+/* styles.css —— AnkiMaker 站点样式（系统字体栈 / 日间暖白） */
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+  color: #213547;
+  background: #f6f8fa;
+}
+
+.wrap { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+
+.topbar { background: #fff; border-bottom: 1px solid #e3e8ee; padding: 22px 0 16px; }
+.topbar h1 { margin: 0; font-size: 24px; }
+.topbar .tag { font-size: 12px; color: #3451b2; border: 1px solid #c9d4f5; border-radius: 10px; padding: 1px 8px; margin-left: 8px; vertical-align: middle; font-weight: 500; }
+.topbar .sub { margin: 6px 0 0; color: #5a7184; font-size: 13.5px; }
+.topbar code { background: #eef2f6; padding: 1px 5px; border-radius: 4px; }
+
+main { padding: 20px 20px 40px; }
+
+.panel { background: #fff; border: 1px solid #e3e8ee; border-radius: 10px; padding: 18px 20px; margin-bottom: 16px; }
+.panel h2 { margin: 0 0 12px; font-size: 17px; }
+.hint { color: #5a7184; font-size: 12.5px; margin-top: 10px; }
+
+.books { display: flex; gap: 12px; flex-wrap: wrap; }
+.book {
+  flex: 1 1 250px; border: 1px solid #dce3ea; border-radius: 10px; padding: 12px 14px;
+  background: #fafbfc; position: relative;
+}
+.book.selected { border-color: #3451b2; background: #f4f7ff; }
+.book h3 { margin: 0 0 4px; font-size: 16px; }
+.book .sub { color: #5a7184; font-size: 12px; margin: 0 0 8px; }
+.book .stats { display: flex; gap: 14px; font-size: 12.5px; color: #3451b2; margin-bottom: 8px; flex-wrap: wrap; }
+.book .types { display: flex; gap: 14px; font-size: 13px; }
+.book .types label { display: flex; align-items: center; gap: 4px; cursor: pointer; }
+
+.preview-controls { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 12px; }
+.preview-controls select { padding: 5px 8px; border: 1px solid #c9d2dc; border-radius: 6px; font-size: 13px; max-width: 320px; background: #fff; }
+.switch { display: flex; align-items: center; gap: 6px; font-size: 13px; color: #5a7184; }
+
+.cards { display: flex; gap: 14px; flex-wrap: wrap; }
+.card-col { flex: 1 1 300px; }
+.card-col h3 { font-size: 13px; color: #5a7184; margin: 0 0 6px; font-weight: 500; }
+.anki-card {
+  font-size: 18px; line-height: 1.7; color: #213547; background: #fff;
+  border: 1px solid #e3e8ee; border-radius: 8px; padding: 14px 16px; min-height: 90px;
+  max-width: 40em;
+}
+.anki-card.night { color: #d8e0ea; background: #1b1b1f; border-color: #2a2d34; }
+.anki-card.night .meta { color: #8fa0b3; }
+.anki-card.night a { color: #a8b1ff; }
+
+.gen-controls { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.gen-controls label { font-size: 13.5px; }
+.gen-controls input[type="text"] { padding: 6px 10px; border: 1px solid #c9d2dc; border-radius: 6px; font-size: 14px; width: 220px; }
+button {
+  padding: 7px 16px; border-radius: 6px; border: 1px solid #c9d2dc; background: #fff;
+  font-size: 13.5px; cursor: pointer; color: #213547;
+}
+button:hover { border-color: #3451b2; color: #3451b2; }
+button.primary { background: #3451b2; border-color: #3451b2; color: #fff; }
+button.primary:hover { background: #2c4599; color: #fff; }
+.result { margin-top: 12px; padding: 10px 14px; border-radius: 8px; background: #f0f7f0; border: 1px solid #cfe6cf; font-size: 13.5px; }
+
+details summary { cursor: pointer; font-size: 14px; color: #3451b2; margin-bottom: 10px; }
+.editor-grid { display: flex; gap: 14px; flex-wrap: wrap; }
+.ed-group { flex: 1 1 340px; }
+.ed-group.full { flex-basis: 100%; }
+.ed-group h4 { margin: 8px 0 4px; font-size: 13px; color: #5a7184; }
+.ed-group textarea {
+  width: 100%; font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 12.5px;
+  border: 1px solid #c9d2dc; border-radius: 6px; padding: 8px; background: #fbfcfd;
+}
+.ed-actions { margin-top: 12px; display: flex; gap: 10px; }
+
+.foot { border-top: 1px solid #e3e8ee; padding: 16px 0 28px; color: #8fa3b4; font-size: 12px; }
+.foot a { color: #5b7fa6; text-decoration: none; text-decoration-color: #e3e8ee; text-underline-offset: 2px; }
+.foot a:hover { color: #3451b2; text-decoration: underline; }
+@media (hover: none) { .foot a:hover { text-decoration: none; } }
+
+@media (max-width: 640px) {
+  .books { flex-direction: column; }
+  .cards { flex-direction: column; }
+}

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AnkiMaker · 古籍 Anki 卡组生成器</title>
+<link rel="stylesheet" href="styles.css?v=4">
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap">
+    <h1>AnkiMaker<span class="tag">古籍 Anki 卡组生成器</span></h1>
+    <p class="sub">选择古籍与卡型 → 实时预览 → 浏览器内生成 <code>.apkg</code> 下载，导入 Anki 即用。数据全部在本地处理，不上传。</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <section id="step-books" class="panel">
+    <h2>1 · 选择古籍与卡型</h2>
+    <div id="books" class="books"></div>
+    <div class="hint">可多选书籍，合并生成一个卡组；每本书可单独选择卡型（背诵卡 = 上句/首句→下句/全诗；赏析卡 = 原文→题解/译文/注释/赏析）。</div>
+  </section>
+
+  <section id="step-preview" class="panel">
+    <h2>2 · 卡片预览</h2>
+    <div class="preview-controls">
+      <select id="preview-book"></select>
+      <select id="preview-note"></select>
+      <label class="switch"><input type="checkbox" id="preview-night"> 夜间模式</label>
+    </div>
+    <div class="cards">
+      <div class="card-col"><h3>正面</h3><div id="preview-front" class="anki-card"></div></div>
+      <div class="card-col"><h3>背面</h3><div id="preview-back" class="anki-card"></div></div>
+    </div>
+  </section>
+
+  <section id="step-generate" class="panel">
+    <h2>3 · 生成卡组</h2>
+    <div class="gen-controls">
+      <label>文件名 <input id="filename" type="text" value="guwen-cards.apkg"></label>
+      <button id="btn-generate" class="primary">生成 .apkg 并下载</button>
+    </div>
+    <div id="gen-result" class="result" hidden></div>
+  </section>
+
+  <section id="step-editor" class="panel">
+    <h2>4 · 模板编辑器（可选）</h2>
+    <details>
+      <summary>编辑卡片模板与样式（保存后生成时生效，存于本地浏览器）</summary>
+      <div class="editor-grid">
+        <div class="ed-group">
+          <h4>背诵卡 · 正面</h4>
+          <textarea id="ed-recite-q" rows="5" spellcheck="false"></textarea>
+          <h4>背诵卡 · 背面</h4>
+          <textarea id="ed-recite-a" rows="8" spellcheck="false"></textarea>
+        </div>
+        <div class="ed-group">
+          <h4>赏析卡 · 正面</h4>
+          <textarea id="ed-under-q" rows="5" spellcheck="false"></textarea>
+          <h4>赏析卡 · 背面</h4>
+          <textarea id="ed-under-a" rows="8" spellcheck="false"></textarea>
+        </div>
+        <div class="ed-group full">
+          <h4>卡片样式 CSS</h4>
+          <textarea id="ed-css" rows="12" spellcheck="false"></textarea>
+        </div>
+      </div>
+      <div class="ed-actions">
+        <button id="btn-model-save">保存模板</button>
+        <button id="btn-model-reset">恢复默认</button>
+      </div>
+    </details>
+  </section>
+
+  <section id="step-transfer" class="panel">
+    <h2>5 · 模板与数据导入导出</h2>
+    <div class="gen-controls">
+      <button id="btn-export">导出当前配置（模板 + 所选数据）</button>
+      <button id="btn-import">导入配置</button>
+      <input type="file" id="import-file" accept=".json" hidden>
+    </div>
+    <div class="hint">导出为 JSON：包含当前模板与所选书籍的全部笔记；导入可恢复模板（笔记数据随站点 bundle 内置）。</div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    数据来源：道德经（维基文库《老子_(匯校版)》）/ 逍遥游（维基文库《莊子/逍遙遊》）/ 唐诗三百首（Project Gutenberg #52323，繁体）。
+    生成在浏览器本地完成（sql.js + JSZip），不上传任何内容。<br />
+    <a id="repo-link" href="https://github.com/isnotry/AnkiMaker" target="_blank" rel="noopener noreferrer">GitHub 开源仓库</a>
+  </div>
+</footer>
+
+<script src="vendor/sql-wasm.js?v=4"></script>
+<script src="vendor/jszip.min.js?v=4"></script>
+<script src="vendor/ankicore.js?v=4"></script>
+<script src="data.js?v=4"></script>
+<script src="app.js?v=4"></script>
+</body>
+</html>
+
