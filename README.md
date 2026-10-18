@@ -194,7 +194,9 @@ AnkiMaker/
 ├── README.md
 ├── LICENSE
 ├── package.json
-├── docs/                           # README 配图
+├── docs/                           # GitHub Pages 发布目录（由 tools/sync-site.sh 从 site/ 同步）
+│   ├── screenshot.png              # README 配图（不经同步，单独维护）
+│   └── og-image.png                # 1200×630 社交分享图
 ├── src/
 │   ├── anki/                       # ★ 生成核心（网站与 Node 测试共用同一份）
 │   │   ├── ids.js                  # 稳定 guid / 牌组 id / 纯 JS sha1 / csum
@@ -228,6 +230,8 @@ AnkiMaker/
 │   ├── rebuild_data_from_apkg.mjs  # 从提取 JSON 重建 src/data/*.js
 │   ├── bundle_site.mjs             # 站点资源打包（esbuild + 数据 bundle）
 │   └── site-core.js                # 站点打包入口（re-export 核心）
+├── tools/
+│   └── sync-site.sh                # site/ → docs/ 同步 + 提交 + 推送（--check 只验不提交）
 └── tests/
     └── anki.test.mjs               # node:test 生成与结构断言
 ```
@@ -241,6 +245,10 @@ npm test                  # node:test：生成 apkg → 解包 → 回读断言
 npm run check:data        # 数据自检（字段完整性、guidSeed 唯一、牌组连续）
 npm run build:site        # 数据自检 + 打包站点资源
 npm run verify            # Python 独立回读样例包
+
+# 站点发布（Pages 从 main 的 /docs 发布，源码在 site/）
+bash tools/sync-site.sh          # 同步 site/ → docs/ 并提交推送
+bash tools/sync-site.sh --check  # 只对比两边是否一致，不提交
 
 # 单书构建 + 校验（可重跑）
 npm run verify:texts      # 道德经 554 + 逍遥游 7 = 561
@@ -266,6 +274,8 @@ npm run verify:fojing     # 心经 9 + 金刚经 204 = 213
 - **`src/anki/` 是网站与 Node 测试共用的同一份**，不要在 `site/` 里另写一份生成逻辑
 - **改数据后必须重跑 `npm run build:site`**，否则 `site/data.js` 与 `src/data/` 不一致
 - **改完 UI 要重跑 `npm run build:site`** —— `site/vendor/ankicore.js` 是 esbuild 产物，手改会在下次打包时被覆盖
+- **`docs/` 别手改** —— 它是 Pages 发布目录，改 `site/` 后跑 `tools/sync-site.sh`；`docs/screenshot.png`（README 配图）**不在同步清单里**，单独维护
+- **换分享图改 `site/og-image.png`** —— 站点用 `https://kingsir.work/AnkiMaker/og-image.png` 声明 OG/Twitter 卡片图，直接改 `docs/` 那份会在下次同步时被覆盖
 
 ## 浏览器支持
 
