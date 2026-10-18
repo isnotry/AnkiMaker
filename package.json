@@ -1,0 +1,29 @@
+{
+  "name": "ankimaker",
+  "version": "0.2.0",
+  "description": "AnkiMaker —— 古籍 Anki 卡组生成器，在浏览器内把古籍文本生成可导入 Anki 的 .apkg（sql.js 建库 + JSZip 打包）",
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/anki.test.mjs",
+    "verify": "python3 scripts/verify_apkg.py tests/out/sample.apkg --main-deck 道德经",
+    "check:data": "node scripts/check_data.mjs",
+    "split:daodejing": "node scripts/split_daodejing.mjs",
+    "build:texts": "node scripts/build_texts_apkg.mjs",
+    "verify:texts": "npm run build:texts && python3 scripts/verify_apkg.py tests/out/daodejing-xiaoyaoyou.apkg --main-deck 道德经 --expect-notes 561 --expect-cards 561",
+    "build:tang300": "node scripts/build_tang300.mjs",
+    "verify:tang300": "npm run build:tang300 && python3 scripts/verify_apkg.py tests/out/tang300.apkg --main-deck 唐诗三百首 --expect-notes 640 --expect-cards 640",
+    "build:fojing": "node scripts/build_fojing.mjs",
+    "verify:fojing": "npm run build:fojing && python3 scripts/verify_apkg.py tests/out/fojing.apkg --main-deck 心經 --expect-notes 213 --expect-cards 213",
+    "bundle:site": "node scripts/bundle_site.mjs",
+    "build:site": "npm run check:data && npm run bundle:site",
+    "build:song300": "node scripts/build_song300.mjs",
+    "verify:song300": "npm run build:song300 && python3 scripts/verify_apkg.py tests/out/song300.apkg --main-deck 宋词三百首 --expect-notes 566 --expect-cards 566"
+  },
+  "dependencies": {
+    "jszip": "^3.10.1",
+    "sql.js": "^1.13.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2"
+  }
+}
