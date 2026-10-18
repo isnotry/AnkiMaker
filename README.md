@@ -3,7 +3,7 @@
 ![浏览器内生成](https://img.shields.io/badge/build-in--browser-brightgreen)
 ![零后端](https://img.shields.io/badge/backend-none-blue)
 ![数据不出本机](https://img.shields.io/badge/data-local--only-orange)
-![Anki schema v11](https://img.shields.io/badge/anki-schema-v11-lightgrey)
+![Anki schema v11](https://img.shields.io/badge/anki-schema--v11-lightgrey)
 ![License: MIT](https://img.shields.io/badge/license-MIT-blue)
 
 > 把道德经、唐诗三百首、宋词三百首等古籍原文变成排版工整、可增量更新的 Anki 卡组 —— 全程在浏览器内生成 `.apkg`，数据不上传。
